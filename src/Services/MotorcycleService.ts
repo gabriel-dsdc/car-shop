@@ -4,6 +4,9 @@ import IMotorcycle from '../Interfaces/IMotorcycle';
 import MotorcycleODM from '../Models/MotorcycleODM';
 import CustomError from '../Utils/CustomError';
 
+const NOT_FOUND = 'Motorcycle not found';
+const INVALID_ID = 'Invalid mongo id';
+
 class MotorcycleService {
   private _model: MotorcycleODM;
 
@@ -21,18 +24,24 @@ class MotorcycleService {
     return motorcyclesList.map((motorcycle) => new Motorcycle(motorcycle));
   }
 
-  public async findById(id: string) {
-    if (!isValidObjectId(id)) { throw new CustomError(422, 'Invalid mongo id'); }
+  public async findById(id: string): Promise<Motorcycle> {
+    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
     const foundMotorcycle = await this._model.findById(id);
-    if (!foundMotorcycle) { throw new CustomError(404, 'Motorcycle not found'); }
+    if (!foundMotorcycle) { throw new CustomError(404, NOT_FOUND); }
     return new Motorcycle(foundMotorcycle);
   }
 
-  public async update(id: string, motorcycle: IMotorcycle) {
-    if (!isValidObjectId(id)) { throw new CustomError(422, 'Invalid mongo id'); }
+  public async update(id: string, motorcycle: IMotorcycle): Promise<Motorcycle> {
+    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
     const updatedMotorcycle = await this._model.update(id, motorcycle);
-    if (!updatedMotorcycle) { throw new CustomError(404, 'Motorcycle not found'); }
+    if (!updatedMotorcycle) { throw new CustomError(404, NOT_FOUND); }
     return new Motorcycle(updatedMotorcycle);
+  }
+
+  public async delete(id: string) {
+    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    const deletedMotorcycle = await this._model.delete(id);
+    if (!deletedMotorcycle) { throw new CustomError(404, NOT_FOUND); }
   }
 }
 

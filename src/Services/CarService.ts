@@ -40,8 +40,8 @@ class CarService {
 
   public async delete(id: string) {
     if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
-    const updatedCar = await this._model.delete(id);
-    if (!updatedCar) { throw new CustomError(404, NOT_FOUND); }
+    const deletedCar = await this._model.delete(id);
+    if (!deletedCar) { throw new CustomError(404, NOT_FOUND); }
   }
 }
 
