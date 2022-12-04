@@ -27,6 +27,13 @@ class MotorcycleService {
     if (!foundMotorcycle) { throw new CustomError(404, 'Motorcycle not found'); }
     return new Motorcycle(foundMotorcycle);
   }
+
+  public async update(id: string, motorcycle: IMotorcycle) {
+    if (!isValidObjectId(id)) { throw new CustomError(422, 'Invalid mongo id'); }
+    const updatedMotorcycle = await this._model.update(id, motorcycle);
+    if (!updatedMotorcycle) { throw new CustomError(404, 'Motorcycle not found'); }
+    return new Motorcycle(updatedMotorcycle);
+  }
 }
 
 export default MotorcycleService;
