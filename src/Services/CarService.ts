@@ -23,9 +23,16 @@ class CarService {
 
   public async findById(id: string) {
     if (!isValidObjectId(id)) { throw new CustomError(422, 'Invalid mongo id'); }
-    const car = await this._model.findById(id);
-    if (!car) { throw new CustomError(404, 'Car not found'); }
-    return new Car(car);
+    const foundCar = await this._model.findById(id);
+    if (!foundCar) { throw new CustomError(404, 'Car not found'); }
+    return new Car(foundCar);
+  }
+
+  public async update(id: string, car: ICar) {
+    if (!isValidObjectId(id)) { throw new CustomError(422, 'Invalid mongo id'); }
+    const updatedCar = await this._model.update(id, car);
+    if (!updatedCar) { throw new CustomError(404, 'Car not found'); }
+    return new Car(updatedCar);
   }
 }
 

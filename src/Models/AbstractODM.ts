@@ -1,4 +1,4 @@
-import { Model, model, models, Schema } from 'mongoose';
+import { Model, model, models, Schema, UpdateQuery } from 'mongoose';
 
 abstract class AbstractODM<T> {
   private _model: Model<T>;
@@ -12,11 +12,15 @@ abstract class AbstractODM<T> {
   }
 
   public async findAll(): Promise<T[]> {
-    return this._model.find();
+    return this._model.find().exec();
   }
 
   public async findById(id: string): Promise<T | null> {
-    return this._model.findOne({ _id: id });
+    return this._model.findById(id).exec();
+  }
+
+  public async update(id: string, obj: UpdateQuery<T>): Promise<T | null> {
+    return this._model.findByIdAndUpdate(id, obj, { new: true }).exec();
   }
 }
 
