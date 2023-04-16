@@ -25,23 +25,23 @@ class MotorcycleService {
   }
 
   public async findById(id: string): Promise<Motorcycle> {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const foundMotorcycle = await this._model.findById(id);
-    if (!foundMotorcycle) { throw new CustomError(404, NOT_FOUND); }
+    if (!foundMotorcycle) { throw new CustomError(NOT_FOUND, 404); }
     return new Motorcycle(foundMotorcycle);
   }
 
   public async update(id: string, motorcycle: IMotorcycle): Promise<Motorcycle> {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const updatedMotorcycle = await this._model.update(id, motorcycle);
-    if (!updatedMotorcycle) { throw new CustomError(404, NOT_FOUND); }
+    if (!updatedMotorcycle) { throw new CustomError(NOT_FOUND, 404); }
     return new Motorcycle(updatedMotorcycle);
   }
 
   public async delete(id: string) {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const deletedMotorcycle = await this._model.delete(id);
-    if (!deletedMotorcycle) { throw new CustomError(404, NOT_FOUND); }
+    if (!deletedMotorcycle) { throw new CustomError(NOT_FOUND, 404); }
   }
 }
 

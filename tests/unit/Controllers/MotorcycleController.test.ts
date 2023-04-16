@@ -107,8 +107,8 @@ describe('Motorcycle camada CONTROLLER', function () {
   describe('Atualizar uma moto pelo id', function () {
     it(TEST_NAME_RESPONSE, async function () {
       // Arrange
-      const carInput = validMotorcycle;
-      const motorcycleOutput: Motorcycle = new Motorcycle(carInput);
+      const motorcycleInput = validMotorcycle;
+      const motorcycleOutput: Motorcycle = new Motorcycle(motorcycleInput);
       sinon.stub(MotorcycleService.prototype, 'update').resolves(motorcycleOutput);
       // Act
       const controller = new MotorcycleController(req, res, next);

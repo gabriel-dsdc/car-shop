@@ -7,3 +7,5 @@ export const INVALID_ERROR = 'Invalid mongo id';
 export const CAR_NOT_FOUND_ERROR = 'Car not found';
 
 export const MOTORCYCLE_NOT_FOUND_ERROR = 'Motorcycle not found';
+
+export const INTERNAL_SERVER_ERROR = 'Internal Server Error';

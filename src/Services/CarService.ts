@@ -25,23 +25,23 @@ class CarService {
   }
 
   public async findById(id: string): Promise<Car> {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const foundCar = await this._model.findById(id);
-    if (!foundCar) { throw new CustomError(404, NOT_FOUND); }
+    if (!foundCar) { throw new CustomError(NOT_FOUND, 404); }
     return new Car(foundCar);
   }
 
   public async update(id: string, car: ICar): Promise<Car> {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const updatedCar = await this._model.update(id, car);
-    if (!updatedCar) { throw new CustomError(404, NOT_FOUND); }
+    if (!updatedCar) { throw new CustomError(NOT_FOUND, 404); }
     return new Car(updatedCar);
   }
 
   public async delete(id: string) {
-    if (!isValidObjectId(id)) { throw new CustomError(422, INVALID_ID); }
+    if (!isValidObjectId(id)) { throw new CustomError(INVALID_ID, 422); }
     const deletedCar = await this._model.delete(id);
-    if (!deletedCar) { throw new CustomError(404, NOT_FOUND); }
+    if (!deletedCar) { throw new CustomError(NOT_FOUND, 404); }
   }
 }
 
